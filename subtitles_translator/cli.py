@@ -2,8 +2,9 @@ import argparse
 import time
 
 from ffmpeg_utils import extract_srt, insert_srt
-from subtitles import Subtitles
-from translator import Translator
+
+from subtitles_translator.subtitles import Subtitles
+from subtitles_translator.translator import Translator
 
 if __name__ == "__main__":
     start = time.time()
