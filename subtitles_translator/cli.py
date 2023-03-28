@@ -1,8 +1,7 @@
 import argparse
 import time
 
-from ffmpeg_utils import extract_srt, insert_srt
-
+from subtitles_translator.ffmpeg_utils import extract_srt, insert_srt
 from subtitles_translator.subtitles import Subtitles
 from subtitles_translator.translator import Translator
 

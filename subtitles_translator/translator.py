@@ -46,7 +46,7 @@ class Translator:
         generated_ids = self.model.generate(**batch)
         translated_text = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
-        return translated_text
+        return translated_text  # type: ignore  # noqa: PGH003
 
     def translate_subtitles(self, subtitles: Subtitles) -> None:
         """Use given translator to perform translation using dictionary of aggregated
