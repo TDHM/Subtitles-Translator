@@ -1,21 +1,24 @@
+from __future__ import annotations
+
+
 class Subtitles:
-    def __init__(self, raw_subtitles: str, sub_format: str = "srt") -> None:
+    def __init__(self, raw_subtitles: list[str], sub_format: str = "srt") -> None:
         """From a raw FFmpeg extraction, process the text and translate it using a given
         Translator object.
 
         Args:
-            raw_subtitles (str): subtitles in the given format.
+            raw_subtitles (list[str]): subtitles line by line
             sub_format (str, optional): sub_format of the extracted subtitles. Defaults to "srt".
         """
         self.raw_subtitles = raw_subtitles
         self.sub_format = sub_format
 
-        self.text_lines = []
-        self.dico_lines = {}
-        self.full_text_lines = []
+        self.text_lines: list[str] = []
+        self.dico_lines: dict[str, int] = {}
+        self.full_text_lines: list[str] = []
 
-        self.aggregated_text_lines = []
-        self.aggregated_dico_lines = {}
+        self.aggregated_text_lines: list[str] = []
+        self.aggregated_dico_lines: dict[str, list] = {}
 
         self.process_timestamps()
         self.build_aggregated_dico()
