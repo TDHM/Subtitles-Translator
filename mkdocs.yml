@@ -1,8 +1,7 @@
 site_name: subtitles-translator
 repo_url: https://github.com/tdhm/subtitles-translator
 site_url: https://tdhm.github.io/subtitles-translator
-site_description: Automatic subtitles translation with a local neural machine translation model. No third-party service required: the translation is done locally with small but efficient neural network models.
-site_author: TDHM
+site_description: Automatic subtitles translation with a local neural machine translation model.
 edit_uri: edit/main/docs/
 repo_name: tdhm/subtitles-translator
 
