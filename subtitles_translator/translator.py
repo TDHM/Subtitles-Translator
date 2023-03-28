@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Generator, no_type_check
 
 from subtitles import Subtitles
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
@@ -69,8 +70,17 @@ class Translator:
                 subtitles.full_text_lines[line_pos[0]] = first_line
                 subtitles.full_text_lines[line_pos[1]] = second_line
 
+    @no_type_check
     @staticmethod
-    def progressBar(iterable, prefix="", suffix="", decimals=1, length=100, fill="█", printEnd="\r"):
+    def progressBar(
+        iterable: list[tuple[str, list]],
+        prefix: str = "",
+        suffix: str = "",
+        decimals: int = 1,
+        length: int = 100,
+        fill: str = "█",
+        printEnd: str = "\r",
+    ) -> Generator[tuple[str, list], None, None]:
         """
         Call in a loop to create terminal progress bar
         @params:
@@ -84,9 +94,9 @@ class Translator:
 
         Source : https://stackoverflow.com/questions/3173320/text-progress-bar-in-terminal-with-block-characters/13685020
         """
-        total = len(iterable)
+        total = len(iterable)  # type checks fails here (len of iterable ?)
         # Progress Bar Printing Function
-        def printProgressBar(iteration):
+        def printProgressBar(iteration: int) -> None:
             percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
             filledLength = int(length * iteration // total)
             bar = fill * filledLength + "-" * (length - filledLength)
