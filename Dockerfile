@@ -10,7 +10,7 @@ ENV POETRY_VERSION=1.4 \
 RUN pip install "poetry==$POETRY_VERSION"
 
 # Install FFmpeg
-RUN apt-get update && apt-get install -y ffmpeg=5.1.2
+RUN apt-get update && apt-get install -y ffmpeg
 
 # Copy only requirements to cache them in docker layer
 WORKDIR /code
