@@ -13,6 +13,8 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
+            options:
+              docstring_style: numpy
             setup_commands:
                 - import sys
                 - sys.path.append('../')

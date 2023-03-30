@@ -84,17 +84,17 @@ class Translator:
         printEnd: str = "\r",
     ) -> Generator[tuple[str, list], None, None]:
         """
-        Call in a loop to create terminal progress bar
-        @params:
-            iterable    - Required  : iterable object (Iterable)
-            prefix      - Optional  : prefix string (Str)
-            suffix      - Optional  : suffix string (Str)
-            decimals    - Optional  : positive number of decimals in percent complete (Int)
-            length      - Optional  : character length of bar (Int)
-            fill        - Optional  : bar fill character (Str)
-            printEnd    - Optional  : end character (e.g. "\r", "\r\n") (Str)
-
+        Call in a loop to create terminal progress bar.
         Source : https://stackoverflow.com/questions/3173320/text-progress-bar-in-terminal-with-block-characters/13685020
+
+        Args:
+            iterable (Iterable): iterable object
+            prefix (str, optional): prefix string
+            suffix (str, optional): suffix string
+            decimals (int, optional): positive number of decimals in percent complete
+            length (int, optional) : character length of bar
+            fill (str, optional): bar fill character (Str)
+            printEnd (str, optional): end character (e.g. "\r", "\r\n")
         """
         total = len(iterable)  # type: ignore # type checks fails here (len of iterable ?)  # noqa: PGH003
         # Progress Bar Printing Function
