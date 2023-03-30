@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import pytest
 
-from subtitles_translator.subtitles import Subtitles
 
 @pytest.fixture
 def raw_subtitles() -> list[str]:
