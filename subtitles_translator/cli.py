@@ -11,8 +11,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Translate the subtitles of the source movie and save a new movie file with translated subtitles."
     )
-    parser.add_argument("-i", "--input", type=str, help="path to the input movie containing subtitles to be translated")
-    parser.add_argument("-o", "--output", type=str, help="desired path to the output movie with translated subtitles")
+    parser.add_argument(
+        "-i", "--input", type=str, required=True, help="path to the input movie containing subtitles to be translated"
+    )
+    parser.add_argument(
+        "-o", "--output", type=str, required=True, help="desired path to the output movie with translated subtitles"
+    )
     parser.add_argument(
         "-s", "--source", type=str, default="en", help="language of the input subtitles (source language)"
     )

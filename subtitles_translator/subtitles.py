@@ -13,26 +13,12 @@ class Subtitles:
         self.raw_subtitles = raw_subtitles
         self.sub_format = sub_format
 
-        self.text_lines: list[str] = []
-        self.dico_lines: dict[str, int] = {}
         self.full_text_lines: list[str] = []
 
         self.aggregated_text_lines: list[str] = []
-        self.aggregated_dico_lines: dict[str, list] = {}
+        self.aggregated_dico_lines: dict[str, list[list]] = {}
 
-        self.process_timestamps()
         self.build_aggregated_dico()
-
-    def process_timestamps(self) -> None:
-        """Filter out timestamps while keeping track of each line index in order to replace
-        original text by the translated one at the end of the process.
-        """
-        for i, line in enumerate(self.raw_subtitles):
-            self.full_text_lines.append(line)
-            if "-->" not in line:
-                self.text_lines.append(line)
-                # keep track of the line's index in raw_subtitles
-                self.dico_lines[line] = i
 
     def build_aggregated_dico(self) -> None:
         """After converting raw extraction to list of lines, aggregates and clean lines
@@ -40,27 +26,31 @@ class Subtitles:
         are saved in order to replace each line at the end.
         """
         seen_i = set()
-        n = len(self.text_lines)
+        n = len(self.raw_subtitles)
 
-        for i, line in enumerate(self.text_lines):
-            if i in seen_i:
+        for i, line in enumerate(self.raw_subtitles):
+            self.full_text_lines.append(line)
+            if i in seen_i or "-->" in line:
                 continue
             agg_line = ""
-            agg_dico = []
-            if i < n - 1 and self.text_lines[i + 1] == "":
+            if i < n - 1 and self.raw_subtitles[i + 1] == "":
                 agg_line += line
-                agg_dico.append(self.dico_lines[line])
                 seen_i.add(i)
                 self.aggregated_text_lines.append(agg_line)
-                self.aggregated_dico_lines[agg_line] = agg_dico
-            if i > 0 and i < n - 2 and self.text_lines[i + 2] == "" and self.text_lines[i - 1] != "":
+                if agg_line in self.aggregated_dico_lines:
+                    self.aggregated_dico_lines[agg_line].append([i])
+                else:
+                    self.aggregated_dico_lines[agg_line] = [[i]]
+            # the following condition means that we are on the second part of a two lines subtitle text
+            if i > 0 and i < n - 2 and self.raw_subtitles[i + 2] == "" and self.raw_subtitles[i - 1] != "":
                 seen_i.add(i)
                 seen_i.add(i + 1)
-                agg_line += line + " " + self.text_lines[i + 1]
-                agg_dico.append(self.dico_lines[line])
-                agg_dico.append(self.dico_lines[self.text_lines[i + 1]])
-                self.aggregated_text_lines.append(self.text_lines[i + 1])
-                self.aggregated_dico_lines[agg_line] = agg_dico
+                agg_line += line + " " + self.raw_subtitles[i + 1]
+                self.aggregated_text_lines.append(self.raw_subtitles[i + 1])
+                if agg_line in self.aggregated_dico_lines:
+                    self.aggregated_dico_lines[agg_line].append([i, i + 1])
+                else:
+                    self.aggregated_dico_lines[agg_line] = [[i, i + 1]]
 
     def save_srt(self, path: str = "translated.srt") -> None:
         """Save current subtitles into an srt files.

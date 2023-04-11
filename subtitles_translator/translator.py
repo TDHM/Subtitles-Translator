@@ -58,20 +58,25 @@ class Translator:
         Args:
             subtitles (subtitles object): object of the Subtitles class.
         """
-        for full_line_text, line_pos in self.progressBar(
+        # here the iterable is aggregated_dico_lines.items(), we use progressBar
+        for full_line_text, lines_ranges in self.progressBar(
             iterable=subtitles.aggregated_dico_lines.items(), prefix="Progress:", suffix="Complete", length=50
         ):
-            line_text = full_line_text.replace("\n", "").replace("â™ª", "")
+            line_text = full_line_text.replace("\n", "")
             translated_text = self.translate(line_text)
-            if len(line_pos) == 1:
-                subtitles.full_text_lines[line_pos[0]] = translated_text
-            if len(line_pos) == 2:
-                split_text = translated_text.split(" ")
-                mid_line = len(split_text) // 2
-                first_line = " ".join(split_text[:mid_line])
-                second_line = " ".join(split_text[mid_line:])
-                subtitles.full_text_lines[line_pos[0]] = first_line
-                subtitles.full_text_lines[line_pos[1]] = second_line
+            for line_pos in lines_ranges:
+                # case when the current screen subtitles stands on 1 line
+                if len(line_pos) == 1:
+                    subtitles.full_text_lines[line_pos[0]] = translated_text
+                # case when we're on two lines subtitles
+                # we try to "rebuild" two-line subtitles
+                if len(line_pos) == 2:
+                    split_text = translated_text.split(" ")
+                    mid_line = len(split_text) // 2
+                    first_line = " ".join(split_text[:mid_line])
+                    second_line = " ".join(split_text[mid_line:])
+                    subtitles.full_text_lines[line_pos[0]] = first_line
+                    subtitles.full_text_lines[line_pos[1]] = second_line
 
     @staticmethod
     def progressBar(
