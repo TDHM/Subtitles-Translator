@@ -1,6 +1,7 @@
 import argparse
 import time
 
+from subtitles_translator.available_languages import AvailableLanguages
 from subtitles_translator.ffmpeg_utils import extract_srt, insert_srt
 from subtitles_translator.subtitles import Subtitles
 from subtitles_translator.translator import Translator
@@ -56,7 +57,10 @@ if __name__ == "__main__":
     else:
         raise ValueError("Input file format not supported.")
 
-    translator = Translator(source_language=args.source, target_language=args.target)
+    source_language = AvailableLanguages(args.source)
+    target_language = AvailableLanguages(args.target)
+
+    translator = Translator(source_language=source_language, target_language=target_language)
     subtitles = Subtitles(source_srt)
 
     translator.translate_subtitles(subtitles)

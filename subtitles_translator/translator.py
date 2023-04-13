@@ -1,46 +1,34 @@
 from __future__ import annotations
 
-from enum import Enum
 from typing import Generator, Iterable
 
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer  # type: ignore  # noqa: PGH003
 
+from subtitles_translator.available_languages import AvailableLanguages
 from subtitles_translator.subtitles import Subtitles
-
-
-class AvailableLanguages(Enum):
-    english = "en"
-    french = "fr"
-    spanish = "es"
-    german = "de"
-    russian = "ru"
-    arabic = "ar"
-    hindi = "hi"
-    itlian = "it"
-    chinese = "zh"
-    dutch = "nl"
 
 
 class Translator:
     def __init__(
         self,
-        source_language: AvailableLanguages = AvailableLanguages.english,
-        target_language: AvailableLanguages = AvailableLanguages.french,
+        source_language: AvailableLanguages,
+        target_language: AvailableLanguages,
     ) -> None:
         """This class defines and stores a language model (such as MarianMT) for the translation
         task, from source_language to target_language. It also provides functions to perform full
         translations effectively from extracted subtitles.
 
-
         Args:
-            source_language (AvailableLanguages, optional): language of the source subtitles. Defaults to "en".
-            target_language (AvailableLanguages, optional): target language. Defaults to "fr".
+            source_language (AvailableLanguages, optional): language of the source subtitles.
+            target_language (AvailableLanguages, optional): target language.
         """
         self.source_language = source_language
         self.target_language = target_language
 
-        self.tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-en-fr")
-        self.model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-en-fr")
+        model_name = f"Helsinki-NLP/opus-mt-{source_language.value}-{target_language.value}"
+
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+        self.model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 
     def translate(self, input_text: str) -> str:
         """Translate a text input using the model.
