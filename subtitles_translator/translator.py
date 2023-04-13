@@ -11,6 +11,14 @@ from subtitles_translator.subtitles import Subtitles
 class AvailableLanguages(Enum):
     english = "en"
     french = "fr"
+    spanish = "es"
+    german = "de"
+    russian = "ru"
+    arabic = "ar"
+    hindi = "hi"
+    itlian = "it"
+    chinese = "zh"
+    dutch = "nl"
 
 
 class Translator:
