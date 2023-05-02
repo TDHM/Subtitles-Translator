@@ -8,8 +8,9 @@
 
 Automatic subtitles translation with a local neural machine translation model. No third-party service required: the translation is done locally with small but efficient neural network models.
 
-- **Github repository**: <https://github.com/tdhm/subtitles-translator/>
-- **Documentation** <https://tdhm.github.io/subtitles-translator/>
+Original movie in French            |  Output of automatic translation
+:-------------------------:|:-------------------------:
+![](./img/bon_voyage_fr.png)  |  ![](./img/bon_voyage_en.png)
 
 ## Getting started with your project
 
