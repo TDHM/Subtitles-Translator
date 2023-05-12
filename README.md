@@ -23,7 +23,7 @@ pip install subtitles_translator
 You'll also need to install [`ffmpeg`](https://ffmpeg.org/), which is available from most package managers:
 
 ```shell
-# on MacOS using Homebrew (https://brew.sh/)
+# on macOS using Homebrew (https://brew.sh/)
 brew install ffmpeg
 
 # on Windows using Chocolatey (https://chocolatey.org/)
@@ -35,8 +35,8 @@ sudo apt update && sudo apt install ffmpeg
 
 ### Usage
 
-With the following command, subtitles from 'video.mp4' will be extracted and translated from 'french' to 'english' and added to 'video.mp4' as a new subtitles track:
+With the following command, subtitles from 'video.mp4' will be extracted and translated from 'french' to 'english'. The video containing translated subtitles will be saved as 'translated_video.mp4':
 
 ```shell
-subtitles_translator -i video.mp4 -s fr -t en
+subtitles_translator -i video.mp4 -o translated_video.mp4 -s fr -t en
 ```
