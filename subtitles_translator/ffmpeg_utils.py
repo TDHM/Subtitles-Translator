@@ -27,4 +27,28 @@ def insert_srt(video_path: str, output_path: str, srt_path: str) -> None:
         srt_path (str): path to the srt subtitles file
     """
 
-    sp.run(["ffmpeg", "-i", video_path, "-i", srt_path, "-c", "copy", "-c:s", "mov_text", output_path])
+    # ffmpeg convert SRT (SubRip) to MP4-compliant subtitles with -c:s mov_text
+    sp.run(
+        [
+            "ffmpeg",
+            "-i",
+            video_path,
+            "-f",
+            "srt",
+            "-i",
+            srt_path,
+            "-map",
+            "0:0",
+            "-map",
+            "0:1",
+            "-map",
+            "1:0",
+            "-c:v",
+            "copy",
+            "-c",
+            "copy",
+            "-c:s",
+            "mov_text",
+            output_path,
+        ]
+    )
