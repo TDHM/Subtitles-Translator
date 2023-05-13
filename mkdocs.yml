@@ -7,7 +7,6 @@ repo_name: tdhm/subtitles-translator
 
 nav:
   - Subtitles Translator Doc: index.md
-  - Google Docstring test: google_docstring.md
   - Getting started:
       - Installation: installation.md
       - How-to guide: how_to.md
@@ -58,3 +57,4 @@ markdown_extensions:
       permalink: true
   - pymdownx.arithmatex:
       generic: true
+  - admonition
