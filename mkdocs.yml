@@ -6,15 +6,21 @@ edit_uri: edit/main/docs/
 repo_name: tdhm/subtitles-translator
 
 nav:
-  - Home: index.md
-  - Modules: modules.md
+  - Subtitles Translator Doc: index.md
+  - Google Docstring test: google_docstring.md
+  - Getting started:
+      - Installation: installation.md
+      - How-to guide: how_to.md
+  - Package reference:
+      - Subtitles Class: subtitles_reference.md
+      - Translator Class: translator_reference.md
+      - FFmpeg utils: ffmpeg_utils_reference.md
+
 plugins:
   - search
   - mkdocstrings:
       handlers:
         python:
-            options:
-              docstring_style: numpy
             setup_commands:
                 - import sys
                 - sys.path.append('../')

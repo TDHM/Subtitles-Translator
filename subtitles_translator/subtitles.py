@@ -1,15 +1,19 @@
 from __future__ import annotations
 
+import os
+
 
 class Subtitles:
-    def __init__(self, raw_subtitles: list[str], sub_format: str = "srt") -> None:
-        """From a raw FFmpeg extraction, process the text and translate it using a given
-        Translator object.
+    """From a raw FFmpeg extraction, process the text and translate it using a given
+    Translator object.
 
-        Args:
-            raw_subtitles (list[str]): subtitles line by line
-            sub_format (str, optional): sub_format of the extracted subtitles. Defaults to "srt".
-        """
+    Args:
+        raw_subtitles (list[str]): Subtitles line by line
+        sub_format (str, optional): sub_format of the extracted subtitles. Defaults to "srt".
+
+    """
+
+    def __init__(self, raw_subtitles: list[str], sub_format: str = "srt") -> None:
         self.raw_subtitles = raw_subtitles
         self.sub_format = sub_format
 
@@ -24,6 +28,7 @@ class Subtitles:
         """After converting raw extraction to list of lines, aggregates and clean lines
         in order to be able to translate them. When two lines are combined, both indexes
         are saved in order to replace each line at the end.
+
         """
         seen_i = set()
         n = len(self.raw_subtitles)
@@ -52,12 +57,13 @@ class Subtitles:
                 else:
                     self.aggregated_dico_lines[agg_line] = [[i, i + 1]]
 
-    def save_srt(self, path: str = "translated.srt") -> None:
+    def save_srt(self, path: str | os.PathLike | os.PathLike = "translated.srt") -> None:
         """Save current subtitles into an srt files.
         If translate_subtitles was called before, this results in a translated srt file.
 
         Args:
-            path (str, optional): path to the target srt file. Defaults to "translated.srt".
+            path (str | os.PathLike, optional): Path to the target SRT file. Defaults to "translated.srt". It is always saved, it is used to put back subtitles with FFmpeg.
+
         """
         with open(path, "w", encoding="utf-8") as file:
             for line in self.full_text_lines:

@@ -9,19 +9,25 @@ from subtitles_translator.subtitles import Subtitles
 
 
 class Translator:
+    """This class defines and stores a language model (such as MarianMT) for the translation
+    task, from source_language to target_language. It also provides functions to perform full
+    translations effectively from extracted subtitles.
+
+    Warning:
+        The translation model will be download from HugginFace servers and cached for a faster load next time.
+        For each (source_language, target_language) pair, there is a distinct model.
+
+    Args:
+        source_language (AvailableLanguages, optional): Language of the source subtitles.
+        target_language (AvailableLanguages, optional): Target language.
+
+    """
+
     def __init__(
         self,
         source_language: AvailableLanguages,
         target_language: AvailableLanguages,
     ) -> None:
-        """This class defines and stores a language model (such as MarianMT) for the translation
-        task, from source_language to target_language. It also provides functions to perform full
-        translations effectively from extracted subtitles.
-
-        Args:
-            source_language (AvailableLanguages, optional): language of the source subtitles.
-            target_language (AvailableLanguages, optional): target language.
-        """
         self.source_language = source_language
         self.target_language = target_language
 
@@ -34,10 +40,11 @@ class Translator:
         """Translate a text input using the model.
 
         Args:
-            input_text (str): text to be translated (usually, a single sentence)
+            input_text (str): Text to be translated (usually, a single sentence)
 
         Returns:
-            str: translated text.
+            str: Translated text.
+
         """
 
         batch = self.tokenizer([input_text], return_tensors="pt")
@@ -52,7 +59,8 @@ class Translator:
         list created at the beginning of the process.
 
         Args:
-            subtitles (subtitles object): object of the Subtitles class.
+            subtitles (Subtitles object): Object of the Subtitles class.
+
         """
         # here the iterable is aggregated_dico_lines.items(), we use progressBar
         for full_line_text, lines_ranges in self.progressBar(
@@ -82,20 +90,21 @@ class Translator:
         decimals: int = 1,
         length: int = 100,
         fill: str = "█",
-        printEnd: str = "\r",
+        print_end: str = "\r",
     ) -> Generator[tuple[str, list], None, None]:
         """
         Call in a loop to create terminal progress bar.
         Source : https://stackoverflow.com/questions/3173320/text-progress-bar-in-terminal-with-block-characters/13685020
 
         Args:
-            iterable (Iterable): iterable object
-            prefix (str, optional): prefix string
-            suffix (str, optional): suffix string
-            decimals (int, optional): positive number of decimals in percent complete
-            length (int, optional) : character length of bar
-            fill (str, optional): bar fill character (Str)
-            printEnd (str, optional): end character (e.g. "\r", "\r\n")
+            iterable (Iterable): Iterable object
+            prefix (str, optional): Prefix string
+            suffix (str, optional): Suffix string
+            decimals (int, optional): Positive number of decimals in percent complete
+            length (int, optional) : Character length of bar
+            fill (str, optional): Bar fill character (Str)
+            print_end (str, optional): End character
+
         """
         total = len(iterable)  # type: ignore # type checks fails here (len of iterable ?)  # noqa: PGH003
         # Progress Bar Printing Function
@@ -103,7 +112,7 @@ class Translator:
             percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
             filledLength = int(length * iteration // total)
             bar = fill * filledLength + "-" * (length - filledLength)
-            print(f"\r{prefix} |{bar}| {percent}% {suffix}", end=printEnd)
+            print(f"\r{prefix} |{bar}| {percent}% {suffix}", end=print_end)
 
         # Initial Call
         printProgressBar(0)
