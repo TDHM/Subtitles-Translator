@@ -17,6 +17,6 @@ class AvailableLanguages(Enum):
     russian = "ru"
     arabic = "ar"
     hindi = "hi"
-    itlian = "it"
+    italian = "it"
     chinese = "zh"
     dutch = "nl"

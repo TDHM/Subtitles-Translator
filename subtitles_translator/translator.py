@@ -11,7 +11,7 @@ from subtitles_translator.subtitles import Subtitles
 class Translator:
     """This class defines and stores a language model (such as MarianMT) for the translation
     task, from source_language to target_language. It also provides functions to perform full
-    translations effectively from extracted subtitles.
+    translations efficiently from extracted subtitles.
 
     Warning:
         The translation model will be download from HugginFace servers and cached for a faster load next time.

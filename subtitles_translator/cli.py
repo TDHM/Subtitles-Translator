@@ -6,8 +6,25 @@ from subtitles_translator.ffmpeg_utils import extract_srt, insert_srt
 from subtitles_translator.subtitles import Subtitles
 from subtitles_translator.translator import Translator
 
-if __name__ == "__main__":
-    start = time.time()
+
+def translate_subtitles_cli() -> None:
+    """Command Line Interface for Neural Subtitles Translation.
+
+    Parameters:
+        -h (--help): Show CLI help message
+        -i (--input): Path to the input movie (if ends with .mp4) or srt file (if ends with .srt) containing subtitles to be translated
+        -o (--output): Path to the output movie (if ends with .mp4 and input is a movie) or srt file (if ends with .srt) containing translated subtitles
+        -s (--source): Code for the language of source subtitles (the source MP4 must only contain one track of subtitles)
+        -t (--target): Code for the target language after translation.
+
+    Example:
+        With the following command, subtitles from 'video.mp4' will be extracted and translated from 'french' to 'english'. The video containing translated subtitles will be saved as 'translated_video.mp4':
+
+        ```shell
+        subtitles_translator -i video.mp4 -o translated_video.mp4 -s fr -t en
+        ```
+
+    """
 
     parser = argparse.ArgumentParser(
         description="Translate the subtitles of the source movie and save a new movie file with translated subtitles."
@@ -36,15 +53,7 @@ if __name__ == "__main__":
         "-s", "--source", type=str, required=True, help="language of the input subtitles (source language)"
     )
     parser.add_argument("-t", "--target", type=str, required=True, help="target language")
-    # this behavior is not implemented yet
-    parser.add_argument(
-        "--copy",
-        action="store_true",
-        help=(
-            "output a copy of the movie (default) or add translated subtitles in place. no effects if input is a SRT"
-            " file"
-        ),
-    )
+
     args = parser.parse_args()
 
     if args.input.endswith(".mp4"):
@@ -72,6 +81,12 @@ if __name__ == "__main__":
         subtitles.save_srt(args.output)
     else:
         raise ValueError("Input file format not supported.")
+
+
+if __name__ == "__main__":
+    start = time.time()
+
+    translate_subtitles_cli()
 
     end = time.time()
     print("Time elapsed: ", end - start)
