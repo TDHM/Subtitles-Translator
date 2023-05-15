@@ -10,7 +10,7 @@ Automatic subtitles translation with a local neural machine translation model. N
 
 > **Github repository**: <https://github.com/tdhm/subtitles-translator/>
 
-> **Documentation** <https://tdhm.github.io/subtitles-translator/>
+> **Documentation** <https://tdhm.github.io/Subtitles-Translator/>
 
 Original movie in French            |  Output of automatic translation
 :-------------------------:|:-------------------------:
