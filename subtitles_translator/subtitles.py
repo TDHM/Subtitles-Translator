@@ -57,7 +57,7 @@ class Subtitles:
                 else:
                     self.aggregated_dico_lines[agg_line] = [[i, i + 1]]
 
-    def save_srt(self, path: str | os.PathLike | os.PathLike = "translated.srt") -> None:
+    def save_srt(self, path: str | os.PathLike = "translated.srt") -> None:
         """Save current subtitles into an srt files.
         If translate_subtitles was called before, this results in a translated srt file.
 
