@@ -1,6 +1,5 @@
 # Neural Subtitles Translator
 
-[![Release](https://img.shields.io/github/v/release/tdhm/subtitles-translator)](https://img.shields.io/github/v/release/tdhm/subtitles-translator)
 [![Build status](https://img.shields.io/github/actions/workflow/status/tdhm/subtitles-translator/main.yml?branch=main)](https://github.com/tdhm/subtitles-translator/actions/workflows/main.yml?query=branch%3Amain)
 [![codecov](https://codecov.io/gh/tdhm/subtitles-translator/branch/main/graph/badge.svg)](https://codecov.io/gh/tdhm/subtitles-translator)
 [![Commit activity](https://img.shields.io/github/commit-activity/m/tdhm/subtitles-translator)](https://img.shields.io/github/commit-activity/m/tdhm/subtitles-translator)
