@@ -21,9 +21,8 @@ def extract_srt(video_path: str) -> str:
 
     # Use subprocess to call FFmpeg CLI
     out = sp.run(["ffmpeg", "-i", video_path, "-map", "s:0", "-f", "srt", "-"], capture_output=True, text=True)
-    subtitles = out.stdout
 
-    return subtitles
+    return out.stdout
 
 
 def insert_srt(video_path: str, output_path: str, srt_path: str) -> None:
