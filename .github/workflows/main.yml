@@ -71,4 +71,4 @@ jobs:
         uses: ./.github/actions/setup-poetry-env
 
       - name: Check if documentation can be built
-        run: poetry run mkdocs build -s
+        run: poetry run mkdocs build

@@ -1,4 +1,4 @@
-site_name: subtitles-translator
+site_name: Neural Subtitles Translator
 repo_url: https://github.com/tdhm/subtitles-translator
 site_url: https://tdhm.github.io/subtitles-translator
 site_description: Automatic subtitles translation with a local neural machine translation model.
@@ -6,15 +6,22 @@ edit_uri: edit/main/docs/
 repo_name: tdhm/subtitles-translator
 
 nav:
-  - Home: index.md
-  - Modules: modules.md
+  - Getting started:
+      - Overview: index.md
+      - Installation: installation.md
+      - How-to guide: how_to.md
+      - Available languages: available_languages.md
+  - Package reference:
+      - Command Line Interface: cli_reference.md
+      - Subtitles Class: subtitles_reference.md
+      - Translator Class: translator_reference.md
+      - FFmpeg utils: ffmpeg_utils_reference.md
+
 plugins:
   - search
   - mkdocstrings:
       handlers:
         python:
-            options:
-              docstring_style: numpy
             setup_commands:
                 - import sys
                 - sys.path.append('../')
@@ -52,3 +59,4 @@ markdown_extensions:
       permalink: true
   - pymdownx.arithmatex:
       generic: true
+  - admonition
