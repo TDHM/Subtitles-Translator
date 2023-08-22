@@ -4,7 +4,6 @@ from typing import Generator, Iterable
 
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer  # type: ignore  # noqa: PGH003
 
-from subtitles_translator.available_languages import AvailableLanguages
 from subtitles_translator.subtitles import Subtitles
 
 
@@ -22,9 +21,8 @@ class Translator:
     def __init__(
         self,
     ) -> None:
-
-        self.tokenizer = AutoTokenizer.from_pretrained("./../en_fr/tokenizer")
-        self.model = AutoModelForSeq2SeqLM.from_pretrained("./../en_fr/model/")
+        self.tokenizer = AutoTokenizer.from_pretrained("./../en_fr_dl/tokenizer")
+        self.model = AutoModelForSeq2SeqLM.from_pretrained("./../en_fr_dl/model/")
 
     def translate(self, input_text: str) -> str:
         """Translate a text input using the model.
