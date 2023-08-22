@@ -15,6 +15,8 @@ python = ">=3.8,<3.11"
 transformers = "^4.27.2"
 sentencepiece = "^0.1.97"
 torch = "2.0.0"
+fastapi = "^0.101.0"
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.22.0"
@@ -25,6 +27,10 @@ mypy = "^0.981"
 pre-commit = "^2.20.0"
 tox = "^3.25.1"
 ruff = "^0.0.260"
+google-cloud-storage = "^2.10.0"
+gcsfs = "^2023.6.0"
+pydantic = "^2.1.1"
+requests = "^2.31.0"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.4.2"
