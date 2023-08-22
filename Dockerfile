@@ -9,6 +9,9 @@ ENV POETRY_VERSION=1.4 \
 # Install poetry
 RUN pip install "poetry==$POETRY_VERSION"
 
+# Install git
+RUN apt-get install git
+
 # Install FFmpeg
 RUN apt-get update && apt-get install -y ffmpeg
 
