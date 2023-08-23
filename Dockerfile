@@ -6,6 +6,9 @@ RUN gsutil cp gs://opus-mt-model/en_fr/ en_fr_dl/
 
 FROM python:3.10-slim-buster
 
+# Allow statements and log messages to immediately appear in the Knative logs
+ENV PYTHONUNBUFFERED True
+
 # We don't need a virtualenv since Docker is already isolated
 ENV POETRY_VERSION=1.4 \
     POETRY_VIRTUALENVS_CREATE=false
