@@ -1,5 +1,9 @@
 # syntax=docker/dockerfile:1
 
+FROM google/cloud-sdk:latest
+
+RUN gsutil cp gs://opus-mt-model/en_fr/ en_fr_dl/
+
 FROM python:3.10-slim-buster
 
 # We don't need a virtualenv since Docker is already isolated
@@ -21,6 +25,9 @@ RUN poetry install --no-interaction --no-ansi --no-root --no-dev
 
 # Copy Python code to the Docker image
 COPY subtitles_translator /code/subtitles_translator/
+
+# Copy model downloaded from GCS
+COPY --from=0 en_fr_dl/ en_fr_dl/
 
 # Open the port used by the API
 EXPOSE 8000
