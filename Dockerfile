@@ -9,9 +9,6 @@ ENV POETRY_VERSION=1.4 \
 # Install poetry
 RUN pip install "poetry==$POETRY_VERSION"
 
-# Install git
-RUN apt-get install git
-
 # Install FFmpeg
 RUN apt-get update && apt-get install -y ffmpeg
 
@@ -25,4 +22,7 @@ RUN poetry install --no-interaction --no-ansi --no-root --no-dev
 # Copy Python code to the Docker image
 COPY subtitles_translator /code/subtitles_translator/
 
-CMD [ "python", "subtitles_translator/cli.py"]
+# Open the port used by the API
+EXPOSE 8000
+
+CMD [ "uvicorn", "subtitles_translator/api_translate:app"]
