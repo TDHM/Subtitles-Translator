@@ -2,7 +2,9 @@
 
 FROM google/cloud-sdk:latest
 
-RUN gsutil cp gs://opus-mt-model/en_fr/ en_fr_dl/
+RUN mkdir en_fr_dl/
+
+RUN gsutil cp -r gs://opus-mt-model/en_fr/ en_fr_dl/
 
 FROM python:3.10-slim-buster
 
